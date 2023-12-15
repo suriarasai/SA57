@@ -47,7 +47,7 @@ class IngredientRepositoryTest {
 	      
 	      StepVerifier.create(ingredientRepo.findById(1L))
 	          .assertNext(ingredient -> {
-	              ingredient.equals(new Ingredient(1L, "Multi Grain", Type.BREAD));
+	              ingredient.equals(new Ingredient(1L, "Garlic", Type.BREAD));
 	          });
 	}
 }

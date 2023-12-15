@@ -1,5 +1,6 @@
 package sg.edu.iss.subway.ingredient;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,9 +17,10 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/ingredients")
+@RequestMapping("/i100")
 public class IngredientController {
 
+	@Autowired
 	private IngredientRepository repository;
 
 	public IngredientController(IngredientRepository repository) {

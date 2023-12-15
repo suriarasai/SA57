@@ -29,6 +29,9 @@ class FluxCreationFunTest {
 			        .verifyComplete();
 	}
 	
+	/**
+	 *  This is to create a Flux from Array
+	 */
 	@Test
 	void testFluxFromArray() {
 		
@@ -48,6 +51,9 @@ class FluxCreationFunTest {
 		
 	}
 	
+	/**
+	 * This is to create a Flux from Iterable
+	 */
 	@Test
 	void testFluxFromIterable() {
 		
@@ -71,6 +77,9 @@ class FluxCreationFunTest {
 	        .verifyComplete();
 	}
 	
+	/**
+	 * This is to create a Flux from Java Stream or Reactor Stream
+	 */
 	@Test
 	void testFluxFromStream() {
 		

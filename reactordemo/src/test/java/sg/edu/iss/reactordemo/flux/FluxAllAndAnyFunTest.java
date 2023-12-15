@@ -7,7 +7,10 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 class FluxAllAndAnyFunTest {
-
+    // null
+	// 0
+	// isEmpty
+	/// ANY ALL 
 	
 	@Test
 	  public void all() {

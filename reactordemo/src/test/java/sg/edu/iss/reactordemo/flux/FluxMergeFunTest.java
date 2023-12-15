@@ -16,26 +16,27 @@ class FluxMergeFunTest {
 	    // delays needed to avoid the first flux from streaming the
 	    // data through before subscribing to the second flux.
 
-	    Flux<String> characterFlux = Flux
-	        .just("", "", "")
+	    Flux<String> studentFlux = Flux
+	        .just("Zou", "Syed", "Priya")
 	        .delayElements(Duration.ofMillis(500));
 	    Flux<String> foodFlux = Flux
-	        .just("", "", "")
+	        .just("Fish Ball Soup", "Nasi Lemak", "Bhatura")
 	        .delaySubscription(Duration.ofMillis(250))
 	        .delayElements(Duration.ofMillis(500));
 
-	    Flux<String> mergedFlux = characterFlux.mergeWith(foodFlux);
+	    Flux<String> mergedFlux = studentFlux.mergeWith(foodFlux);
 
 	    StepVerifier.create(mergedFlux)
-	        .expectNext("")
-	        .expectNext("")
-	        .expectNext("")
-	        .expectNext("")
-	        .expectNext("")
-	        .expectNext("")
+	        .expectNext("Zou")
+	        .expectNext("Fish Ball Soup")
+	        .expectNext("Syed")
+	        .expectNext("Nasi Lemak")
+	        .expectNext("Priya")
+	        .expectNext("Bhatura")
 	        .verifyComplete();
 	  }
-
+      // Catresian 
+	  // CSV Col, Col others mix?
 	  @Test
 	  public void zipFluxes() {
 	    Flux<String> characterFlux = Flux
@@ -62,17 +63,17 @@ class FluxMergeFunTest {
 	  @Test
 	  public void zipFluxesToObject() {
 	    Flux<String> characterFlux = Flux
-	        .just("", "", "");
+	        .just("A", "B", "C");
 	    Flux<String> foodFlux = Flux
-	        .just("", "", "");
+	        .just("Soup", "Toast", "Salad");
 
 	    Flux<String> zippedFlux =
 	        Flux.zip(characterFlux, foodFlux, (c, f) -> c + " eats " + f);
 
 	    StepVerifier.create(zippedFlux)
-	          .expectNext(" eats ")
-	          .expectNext(" eats ")
-	          .expectNext(" eats ")
+	          .expectNext("A eats Soup")
+	          .expectNext("B eats Toast")
+	          .expectNext("B eats Salad")
 	          .verifyComplete();
 	  }
 
@@ -80,9 +81,9 @@ class FluxMergeFunTest {
 	  public void firstWithSignalFlux() {
 	    // delay needed to "slow down" the slow Flux
 
-	    Flux<String> slowFlux = Flux.just("tortoise", "snail", "sloth")
+	    Flux<String> slowFlux = Flux.just("tortoise", "snail", "sloth") // MySQL
 	          .delaySubscription(Duration.ofMillis(100));
-	    Flux<String> fastFlux = Flux.just("hare", "cheetah", "squirrel");
+	    Flux<String> fastFlux = Flux.just("hare", "cheetah", "squirrel"); // Mongo
 
 	    Flux<String> firstFlux = Flux.firstWithSignal(slowFlux, fastFlux);
 
@@ -90,6 +91,7 @@ class FluxMergeFunTest {
 	        .expectNext("hare")
 	        .expectNext("cheetah")
 	        .expectNext("squirrel")
+	        
 	        .verifyComplete();
 	  }
 

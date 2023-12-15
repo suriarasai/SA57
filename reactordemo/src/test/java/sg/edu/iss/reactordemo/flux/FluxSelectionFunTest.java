@@ -61,7 +61,7 @@ class FluxSelectionFunTest {
     Flux<String> nationalParkFlux = Flux.just(
         "Yellowstone", "Yosemite", "Grand Canyon", "Zion", "Grand Teton")
         .filter(np -> !np.contains(" "));
-
+   // filer select where in SQL
     StepVerifier.create(nationalParkFlux)
         .expectNext("Yellowstone", "Yosemite", "Zion")
         .verifyComplete();
